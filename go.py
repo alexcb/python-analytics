@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 from numpy import convolve
 import matplotlib.pyplot as plt
 
@@ -31,9 +32,11 @@ def moving_average(values, window):
 
 data = np.loadtxt('input.data')
 data = fill_missing_seconds(data)
-data = moving_average(data, 15)
+data = moving_average(data, 60*30)
 t = data[:,0]
 y = data[:,1]
+
+t = [datetime.datetime.fromtimestamp(x) for x in t]
 
 plt.plot(t,y)
 plt.savefig('output.png', bbox_inches='tight')
