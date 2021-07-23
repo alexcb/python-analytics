@@ -14,7 +14,7 @@ def get_float_or_zero(s):
 def get_data():
     p = re.compile('victoria-weather-[0-9]+.csv')
     rows = []
-    for filename in os.listdir(script_dir):
+    for filename in sorted(os.listdir(script_dir)):
         if p.match(filename):
             path = os.path.join(script_dir, filename)
             with open(path, newline='') as csvfile:
