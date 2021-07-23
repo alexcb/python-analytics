@@ -64,13 +64,16 @@ def transpose(rows):
         snow.append(row[2])
     return dates, rain, snow
 
-
 rows = get_data()
 
 fig = plt.figure(figsize=(10.0, 10.0))
 ax = fig.add_axes([0,0,1,1])
 
-for year, data in get_yearly_cumsum(rows):
+def get_max_precip(key):
+    _, rain, snow = transpose(key[1])
+    return max(rain) + max(snow)
+
+for year, data in sorted(get_yearly_cumsum(rows), key=get_max_precip, reverse=True):
     day, rain, snow = transpose(data)
     percp = [x+y for x,y in zip(rain, snow)]
     ax.plot(day, percp, label=f'{year}')
