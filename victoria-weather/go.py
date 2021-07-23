@@ -67,14 +67,16 @@ def transpose(rows):
 
 rows = get_data()
 
+fig = plt.figure(figsize=(10.0, 10.0))
+ax = fig.add_axes([0,0,1,1])
+
 for year, data in get_yearly_cumsum(rows):
     day, rain, snow = transpose(data)
     percp = [x+y for x,y in zip(rain, snow)]
-    plt.plot(day, percp, label=f'{year}')
+    ax.plot(day, percp, label=f'{year}')
 
-plt.xlabel('days since jan 1st')
-plt.ylabel('precipitation (mm)')
-plt.title('Victoria BC cumulative yearly precipitation')
-plt.legend()
-plt.savefig('where-is-the-rain.png', bbox_inches='tight')
-plt.show()
+ax.set_xlabel('days since jan 1st')
+ax.set_ylabel('precipitation (mm)')
+ax.set_title('Victoria BC cumulative yearly precipitation')
+ax.legend()
+fig.savefig('where-is-the-rain.png', bbox_inches='tight')
